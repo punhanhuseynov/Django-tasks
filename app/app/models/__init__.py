@@ -8,7 +8,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Phone(models.Model):
+class Brand(models.Model):
     name=models.CharField(max_length=20)
     category=models.ForeignKey('Category',on_delete=models.CASCADE)
 
@@ -17,7 +17,7 @@ class Phone(models.Model):
 
 class Models(models.Model):
     name=models.CharField(max_length=20)
-    category=models.ForeignKey('Phone',on_delete=models.CASCADE)
+    category=models.ForeignKey('Brand',on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -26,5 +26,5 @@ class Models(models.Model):
 
 
 admin.site.register(Category)
-admin.site.register(Phone)
+admin.site.register(Brand)
 admin.site.register(Models)
