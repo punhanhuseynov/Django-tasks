@@ -1,30 +1,20 @@
 from django.db import models
 from django.contrib import admin
+from mptt.models import MPTTModel,TreeForeignKey
+from mptt.admin import MPTTModelAdmin
 
-class Category(models.Model):
-   
+class Category(MPTTModel):
+    
     name=models.CharField(max_length=20)
+    parent=TreeForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='children')
+    
 
-    def __str__(self):
-        return self.name
-
-class Brand(models.Model):
-    name=models.CharField(max_length=20)
-    category=models.ForeignKey('Category',on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-class Models(models.Model):
-    name=models.CharField(max_length=20)
-    category=models.ForeignKey('Brand',on_delete=models.CASCADE)
+    class MPTTMeta:
+        order_insertion_by=['name']
 
     def __str__(self):
         return self.name
 
 
 
-
-admin.site.register(Category)
-admin.site.register(Brand)
-admin.site.register(Models)
+admin.site.register(Category,MPTTModelAdmin)

@@ -5,118 +5,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
 
-  <style>
-    /* Remove default bullets */
-    ul,
-    #myUL {
-      list-style-type: none;
-    }
-
-    /* Remove margins and padding from the parent ul */
-    #myUL {
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Style the caret/arrow */
-    .caret {
-      cursor: pointer;
-      user-select: none;
-      /* Prevent text selection */
-    }
-
-    /* Create the caret/arrow with a unicode, and style it */
-    .caret::before {
-      content: "\25B6";
-      color: black;
-      display: inline-block;
-      margin-right: 6px;
-    }
-
-    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-    .caret-down::before {
-      transform: rotate(90deg);
-    }
-
-    /* Hide the nested list */
-    .nested {
-      display: none;
-    }
-
-    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-    .active {
-      display: block;
-    }
-  </style>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
+  <div class="container">
+    <div class="row">
+      <h2>Categories</h2>
+      <ul class="list-group">
+        {% load mptt_tags %} 
 
-  <ul class="nav nav-tabs">
-
-
-    <li class="nav-item dropdown">
-      <ul class='nav-link' id=" myUL">
-        <li><span class="caret">Kateqorialar</span>
-          <ul class="nested">
-            {% for i in category %}
-
-            <li><span class="caret">{{i.name}}</span>
-              <ul class="nested">
-
-                {% for y in phone %}
-
-                {% if i.id == y.category_id %}
-                <li><span class="caret">{{y.name}}</span>
-                  <ul class="nested">
-                    
-                    {% for v in models %}
-                      {% if y.id == v.category_id %}
-                        <li>{{v.name }}</li>
-                      {% endif %}
-
-                    {% endfor %}
-
-
-                  </ul>
-
+        <ul class="categories">
+            {% recursetree category %}
+                <li>
+                    {{ node.name }}
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
                 </li>
-                {% endif %}
-                {% endfor %}
-
-              </ul>
-            </li>
-            {% endfor %}
-          </ul>
-        </li>
+            {% endrecursetree %}
+        </ul>
       </ul>
+    </div>
 
-    </li>
-
-
-
-  </ul>
+  </div>
 
 
 
 
 
-  <script>
-    var toggler = document.getElementsByClassName("caret");
-    var i;
 
-    for (i = 0; i < toggler.length; i++) {
-      toggler[i].addEventListener("click", function () {
-        this.parentElement.querySelector(".nested").classList.toggle("active");
-        this.classList.toggle("caret-down");
-      });
-    }
-  </script>
 </body>
 
 </html>
