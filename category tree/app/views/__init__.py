@@ -6,9 +6,6 @@ def index(request):
     cat1=Category.objects.all()
 
 
-    
 
-
-
-    return render(request,'index.html',{"category":cat1})
+    return render(request,'index.html',{"category":datas})
 
