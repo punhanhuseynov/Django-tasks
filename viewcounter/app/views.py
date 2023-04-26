@@ -15,7 +15,7 @@ def product(request,id):
 
     ip=request.META.get('REMOTE_ADDR')
 
-    now=datetime.now().strftime('%Y:%m:%d')
+    now=datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
 
     productviewers=request.session.get('viewed',{})
 
@@ -34,15 +34,13 @@ def product(request,id):
     else:
         if ip in  productviewers[id]['ip']:
             
-            if datetime.strptime(now,"%Y:%m:%d")>datetime.strptime(productviewers[id]['date'],"%Y:%m:%d")+timedelta(days=1):
+            if datetime.strptime(now,"%Y:%m:%d:%H:%M:%S")>datetime.strptime(productviewers[id]['date'],"%Y:%m:%d:%H:%M:%S")+timedelta(days=1):
                 data.viewers+=1
                 data.save()
                 productviewers[id]['date']=now
-                
-                
             
-        
-     
+            # return HttpResponse(f"{productviewers[id]['date']}-{datetime.strptime(productviewers[id]['date'],'%Y:%m:%d:%H:%M:%S')+timedelta(days=1)}")
+      
         else:
             data.viewers+=1
             data.save()
