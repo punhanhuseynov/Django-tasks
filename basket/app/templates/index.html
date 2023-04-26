@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping Cart</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="static/assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="static/assets/css/custom.css"/>		
+	</head>
+
+	<body>
+		
+		
+		
+		
+		<div class="container text-center">
+<h2>Shopping cart</h2>
+
+
+        </br>
+        <hr>
+			<div class="col-md-6 col-sm-12">
+				<div class="bigcart"></div>
+                <h2>Products</h2>
+                <ul class="list-group d-flex">
+                    
+                    {% for i in product %}
+                    <li class="list-group-item col-12d-flex justify-content-between"  style="justify-content: space-between;">{{i.name}} <a href='add/cart/product/{{i.id}}' class="btn btn-primary">Add Cart</a></li>
+                    {% endfor %}
+                  </ul>
+				
+			</div>
+            
+			<div class="col-md-6 col-sm-12 text-left">
+                
+				<ul>
+                    <h3>My cart</h3>
+					<li class="row list-inline columnCaptions">
+						<span>QTY</span>
+						<span>ITEM</span>
+						<span>Price</span>
+					</li>
+                    {% for i in cart %}
+					<li class="row">
+						<span class="quantity">1</span>
+						<span class="itemName">{{i.product_id}}</span>
+						<a href="delete/cart/{{i.id}}" class="popbtn btn btn-danger">
+                        x
+                        </a>
+						<span class="price">
+                            {% for  l in product %} 
+                          
+                                 {% if l.id == i.product_id.id %}
+
+                                 {{l.price}}
+                                        
+                                
+                                {% endif %} 
+                                
+
+                            {% endfor %}
+                        </span>
+
+					</li>
+                    {% endfor %}
+					
+				
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- The popover content -->
+
+		<div id="popover" style="display: none">
+			<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+		</div>
+		
+		<!-- JavaScript includes -->
+
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+		<script src="static/assets/js/bootstrap.min.js"></script>
+		<script src="static/assets/js/customjs.js"></script>
+
+	</body>
+</html>
