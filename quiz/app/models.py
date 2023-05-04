@@ -25,3 +25,10 @@ class Result(models.Model):
     falseanswers=models.CharField(max_length=50)
 
 
+class Wronganswers(models.Model):
+    result=models.ForeignKey(Result,on_delete=models.CASCADE)
+    question=models.CharField(max_length=80)
+    answer=models.CharField(max_length=80)
+    correct=models.CharField(max_length=80)
+
+

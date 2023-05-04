@@ -5,7 +5,7 @@ from django.http import JsonResponse
 import json
 # Create your views here.
 
-from app.models import Questions,Questioncategory,Result
+from app.models import *
 def userlogin(request):
     if request.method=='POST':
         username=request.POST['username']
@@ -26,23 +26,25 @@ def userlogin(request):
 
 @login_required
 def index(request):
+    
     result=Result.objects.all()
     question= Questioncategory.objects.all()
+    wrong=Wronganswers.objects.all()
     
     
-    return render(request,'index.html',{"quest":question,"user":request.user,"result":result})
+    return render(request,'index.html',{"quest":question,"user":request.user,"result":result,"wrong":wrong})
 
 
 @login_required
 def test(request,id):
     
+ 
+
     testresult=Result.objects.filter(
         user=request.user,
         questcategory=Questioncategory.objects.filter(id=id).first()
                                      )
     
-    
-
     question=Questions.objects.filter(questcategory=Questioncategory.objects.filter(id=id).first())
     if question :
         if testresult:
@@ -57,12 +59,21 @@ def test(request,id):
 def add(request):
     if request.method == 'POST':
         data=json.loads(request.body)
-   
+
+        print(data)
         result=Result(
             questcategory=Questioncategory.objects.filter(id=data['category_id']).first(),
             user=request.user,
             trueanswers=data['true'],
             falseanswers=data['false']  
               )
+        
         result.save()
-        return JsonResponse({"res":'hellow'})
+
+        if data['result']:
+            for w in data['result']:
+                wrong=Wronganswers(question=w['question'],correct=w['correct'],answer=w['answer'],result=result,)
+                wrong.save()
+
+
+        return JsonResponse({"res":data})

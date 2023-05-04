@@ -5,6 +5,7 @@ let seeResultbtn = document.getElementById('resultBtn')
 let notchecked = true
 let trueanswer = 0
 let falseanswer = 0
+let failanswer=[]
 
 seeResultbtn.onclick = () => {
 
@@ -16,10 +17,24 @@ seeResultbtn.onclick = () => {
             if (questions[i].firstElementChild.parentElement.id == questions[i].parentNode.id) {
                 
                 trueanswer += 1
+                
+
             }
-            else {
+            else if (questions[i].firstElementChild.parentElement.id != questions[i].parentNode.id){
                 
                 falseanswer += 1
+                console.log(questions[i].firstElementChild.parentElement.id)
+                console.log('sidir')
+                failanswer.push(
+
+                    {
+                        "question":questions[i].parentNode.parentNode.firstElementChild.firstElementChild.innerHTML,
+                        "answer":questions[i].firstElementChild.parentElement.id,
+                        "correct":questions[i].parentNode.id
+                        
+                    }
+                )
+
 
             }
 
@@ -39,11 +54,14 @@ seeResultbtn.onclick = () => {
     }
 
     
+    
    
     trueanswer = 0
     falseanswer = 0
+   
 
-    window.location.replace('/');
+    window.location.href='/'
+   
 
     
 
@@ -66,9 +84,12 @@ function senddata(){
     data={
         "true":trueanswer,
         "false":falseanswer,
+        "result":failanswer,
         "category_id":window.location.href.split('/')[window.location.href.split('/').length-1]
        
     }
+
     xhr.send(JSON.stringify(data));
+    failanswer=[]
 
 }

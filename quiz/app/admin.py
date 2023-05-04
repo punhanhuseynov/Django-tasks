@@ -3,8 +3,9 @@ from django.contrib import admin
 # Register your models here.
 
 
-from app.models import Questions,Result,Questioncategory
+from app.models import *
 
 admin.site.register(Questioncategory)
 admin.site.register(Questions)
 admin.site.register(Result)
+admin.site.register(Wronganswers)
