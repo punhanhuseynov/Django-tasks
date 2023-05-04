@@ -57,6 +57,7 @@ def test(request,id):
 
 @login_required
 def add(request):
+
     if request.method == 'POST':
         data=json.loads(request.body)
 
@@ -70,10 +71,30 @@ def add(request):
         
         result.save()
 
-        if data['result']:
-            for w in data['result']:
+        if data['resultfail']:
+            for w in data['resultfail']:
                 wrong=Wronganswers(question=w['question'],correct=w['correct'],answer=w['answer'],result=result,)
                 wrong.save()
 
+        if data['resulttrue']:
+            for c in data['resulttrue']:
+                correct=Correctanswers(question=c['question'],answer=c['answer'],result=result,)
+                correct.save()
+
 
         return JsonResponse({"res":data})
+    
+
+@login_required
+def watch_result(request,id):
+    wrong=Wronganswers.objects.filter(result=Result.objects.filter(id=id).first())
+    correct=Correctanswers.objects.filter(result=Result.objects.filter(id=id).first())
+
+    if wrong or correct:
+        data={
+            "wrong":wrong,
+            "correct":correct
+        }
+        return render(request,'result.html',data)
+    else:
+        return redirect('/')

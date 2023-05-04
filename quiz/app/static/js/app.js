@@ -6,6 +6,7 @@ let notchecked = true
 let trueanswer = 0
 let falseanswer = 0
 let failanswer=[]
+let correctanswer=[]
 
 seeResultbtn.onclick = () => {
 
@@ -17,6 +18,14 @@ seeResultbtn.onclick = () => {
             if (questions[i].firstElementChild.parentElement.id == questions[i].parentNode.id) {
                 
                 trueanswer += 1
+                correctanswer.push(
+                    {
+                        "question":questions[i].parentNode.parentNode.firstElementChild.firstElementChild.innerHTML,
+                        "answer":questions[i].firstElementChild.parentElement.id,
+                        
+                        
+                    }
+                )
                 
 
             }
@@ -24,7 +33,7 @@ seeResultbtn.onclick = () => {
                 
                 falseanswer += 1
                 console.log(questions[i].firstElementChild.parentElement.id)
-                console.log('sidir')
+                
                 failanswer.push(
 
                     {
@@ -84,12 +93,14 @@ function senddata(){
     data={
         "true":trueanswer,
         "false":falseanswer,
-        "result":failanswer,
+        "resultfail":failanswer,
+        "resulttrue":correctanswer,
         "category_id":window.location.href.split('/')[window.location.href.split('/').length-1]
        
     }
 
     xhr.send(JSON.stringify(data));
     failanswer=[]
+    correctanswer=[]
 
 }

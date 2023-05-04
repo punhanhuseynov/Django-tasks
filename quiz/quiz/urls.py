@@ -23,5 +23,6 @@ urlpatterns = [
     path('login/',userlogin),
     path('',index),
     path('test/<id>',test),
-    path('add/',add,name='add')
+    path('add/',add,name='add'),
+    path('test/results/<id>',watch_result)
 ]

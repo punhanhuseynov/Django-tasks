@@ -31,4 +31,11 @@ class Wronganswers(models.Model):
     answer=models.CharField(max_length=80)
     correct=models.CharField(max_length=80)
 
+class Correctanswers(models.Model):
+    result=models.ForeignKey(Result,on_delete=models.CASCADE)
+    question=models.CharField(max_length=80)
+    answer=models.CharField(max_length=80)
+    
+
+
 

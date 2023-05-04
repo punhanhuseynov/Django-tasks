@@ -66,21 +66,7 @@
                         {% if i.id == y.questcategory.id and y.user.id == user.id %}
                         <p class="btn btn-dark">tamamlandı</p>
 
-                            <ul class="ul">
-                                {% for w in wrong %}
-                                    {% if w.result.id == y.id %}
-                                    
-                                    <ol>
-                                        <div class="card card-body" >
-                                            <p><span class="btn btn-warning "> Sual </span> {{w.question}} </p>
-                                            <p><span class="btn btn-danger">Cavab</span> -{{w.answer}}</p>
-                                        </div>
-                                    </ol>
-
-                                    {% endif %}
-                                
-                                {% endfor %}
-                            </ul>
+                        <p><a href="/test/results/{{y.id}}" class="btn btn-primary">Nəticələr</a></p>
 
                         {% endif %}
 
