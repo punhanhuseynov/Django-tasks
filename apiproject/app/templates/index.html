@@ -21,7 +21,7 @@
         })
     function getUser(){
         let xhr=new XMLHttpRequest()
-        xhr.open('POST','/api/token/',true)
+        xhr.open('POST','http://localhost:8000/auth/login/',true)
         xhr.setRequestHeader('Content-Type','application/json')
         xhr.onload=()=>{
             if(xhr.status==200){
@@ -34,9 +34,12 @@
         data=JSON.stringify({
             username:"punhan",
             password:'1'
+            
         })
         xhr.send(data)
     }
     </script>
 </body>
 </html>
+
+Yeni bir folder acin zehmet olmasa sifird 

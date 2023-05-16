@@ -14,10 +14,9 @@ class TodoSerializer(serializers.ModelSerializer):
         model=Todo
         fields=['id','name']
 
-class MyTokenObtainPairSrializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token=super().get_token(user)
+# class MyTokenObtainPairSrializer(TokenObtainPairSerializer):
+#     @classmethod
+#     def get_token(cls, user):
+#         token=super().get_token(user)
     
-        return token
-
+#         return token
