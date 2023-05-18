@@ -1,14 +1,11 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User 
-from app.models import Todo
-# Toxunursuz donur
+from app.models import Book
 
-class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField()
+class LoginSerializer(serializers.ModelSerializer):
+    username=serializers.CharField()
+    password=serializers.CharField()
 
-
-class TodoListSerializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Todo 
-        fields = "__all__"
+        model=Book
+        fields="__all__"

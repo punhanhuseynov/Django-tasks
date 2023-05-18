@@ -1,9 +1,9 @@
-from django.urls import path 
-
+from django.urls import path, include
 from app.api.views import *
 
-
 urlpatterns = [
-    path('login/',LoginAPIView.as_view(), name="login"),
-    path('todos/', TodoListAPIView.as_view(), name='todo-lists'),
+    path('books/',list_all_books),
+    path('books/<id>',book_detail),
+    path('login/',login_view)
+
 ]
