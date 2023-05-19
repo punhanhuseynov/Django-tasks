@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from app.models import Book
 
-class LoginSerializer(serializers.ModelSerializer):
+
+
+class LoginSerializer(serializers.Serializer):
     username=serializers.CharField()
     password=serializers.CharField()
 
