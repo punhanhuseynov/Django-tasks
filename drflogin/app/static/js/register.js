@@ -26,6 +26,7 @@ function sendLogin(username,password,email,fname,surname){
         data=JSON.parse(xhr.responseText)
         console.log(data)
         if(data.message=='created'){
+           
             document.body.innerHTML=`
             <div class="container">
   <div class="row d-flex justify-content-center">
@@ -34,6 +35,7 @@ function sendLogin(username,password,email,fname,surname){
 </div>
             `
         }
+        
         
     }
 

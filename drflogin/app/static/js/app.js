@@ -21,6 +21,7 @@ function sendLogin(username,password){
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.onload=()=>{
         data=JSON.parse(xhr.responseText)
+    
         if(data.message=='fill'){
             alertmodel.innerHTML=`
             <div class="alert alert-warning d-flex align-items-center" role="alert">
@@ -30,6 +31,7 @@ function sendLogin(username,password){
             </div>
           </div>`
         }
+
         if(data.message=='wrongusername'){
             alertmodel.innerHTML=`
             <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -43,6 +45,7 @@ function sendLogin(username,password){
         if(data.message=='welcome'){
             userrow.style.height='100%'
             loginrow.style.height='0%'
+            console.log(data)
             alertmodel.innerHTML=`
             <div class="alert alert-success d-flex align-items-center" role="alert">
           
@@ -51,15 +54,17 @@ function sendLogin(username,password){
             </div>
           </div>`
         }
+        
+        
 
     }
 
-    data={
+    senddata={
         "username":username,
         "password":password
     }
 
-    xhr.send(JSON.stringify(data))
+    xhr.send(JSON.stringify(senddata))
 
 }
 

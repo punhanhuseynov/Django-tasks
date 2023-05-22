@@ -3,15 +3,16 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from app.api.serializer import LoginSerializer,RegisterSerializer
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated,IsAdminUser,AllowAny
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate,login,logout
-
+from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.core.mail import send_mail
 
 class UserLoginView(APIView):
-    
+    permission_classes=[AllowAny]
     def get(self,request):
         return Response(
             {
@@ -29,14 +30,20 @@ class UserLoginView(APIView):
 
             user=authenticate(request=request,username=username,password=password)
             if user is not None:
-                token=Token.objects.get(user=user)
-
+                token_access=AccessToken.for_user(user)
+                token_refresh=RefreshToken.for_user(user)
                 login(request,user)
-
-                return Response(
-                {
-                "message":'welcome'
+                token={
+                    "access":str(token_access),
+                    "refresh":str(token_refresh)
                 }
+                return Response(
+              
+                {
+                "message":'welcome',
+                "token":token
+                
+                },status=status.HTTP_200_OK
 
                 )
             else:
@@ -75,5 +82,11 @@ class UserRegistrationView(APIView):
             return Response({'message':"created"})
         
         return Response(serializer.errors)
+
+class TestView(APIView):
+    authentication_classes=[JWTAuthentication]
+    permission_classes=[IsAdminUser]
+    def get(self,request):
+        return Response(status=status.HTTP_200_OK)
 
         

@@ -27,6 +27,7 @@ urlpatterns = [
     path('userregister/',UserRegistrationView.as_view()),
     path('activate/user/<id>/',activate),
     path('register/',index_register),
-    path('logout/',user_logout)
+    path('logout/',user_logout),
+    path('test/',TestView.as_view())
 
 ]
