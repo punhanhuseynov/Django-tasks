@@ -12,7 +12,7 @@ submit_btn.addEventListener('click',()=>{
 })
 
 function sendLogin(username,password){
-  
+
     
     let xhr=new XMLHttpRequest()
     let url='http://localhost:8000/userlogin/'
