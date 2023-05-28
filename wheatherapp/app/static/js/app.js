@@ -7,7 +7,7 @@ subbtn.onclick=()=>{
 
 function getWhet(cityname){
     let xhr=new XMLHttpRequest
-    let url=`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=c3b7699bfd85df109680fdcd15b7da56&units=metric`
+    let url=`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=YOUR_API_KEY`
 
     xhr.open('GET',url,true)
 
