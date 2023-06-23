@@ -1,2 +1,2 @@
 # Django Projects
-- Bu reponun əsas məqsədi django-nu öyrənərkən yaratdığım kiçik layihələri bu repoda göstərməkdir
+- Bu reponun əsas məqsədi django-nu öyrənərkən yaratdığım ki çik layihələri bu repoda göstərməkdir
